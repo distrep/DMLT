@@ -34,6 +34,11 @@ classdef enet < dml.method
     
    weights % regression weights (offset last)
    
+   % Activations; see Haufe S, Meinecke F, Görgen K, Dähne S, Haynes J-D,
+   % Blankertz B, et al. On the interpretation of weight vectors of linear
+   % models in multivariate neuroimaging. Neuroimage. 2013 Nov.
+   activations % activation values (Sigma_x * weights)
+   
    family = 'gaussian' % gaussian, binomial, or multinomial
    
    lambda;      % used lambda(s)
@@ -274,7 +279,16 @@ classdef enet < dml.method
 
       end
 
-               
+      % save activations
+      if size(X,1)<20000
+        %Sx = cov([X ones(size(X,1),1)]); % don't forget bias
+        Ex = [X ones(size(X,1),1)]'*[X ones(size(X,1),1)];
+        Ex = Ex./size(X,1);
+        obj.activations = Ex * obj.weights;
+      else
+        fprintf('refusing to compute %d x %d covariance matrix.');
+      end
+      
     end
     
     function Y = test(obj,X)
