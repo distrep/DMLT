@@ -158,7 +158,7 @@ classdef gridsearch < dml.method
              if obj.verbose
                fprintf('evaluating configuration %d of %d:',i,size(obj.configs,1));
                for c=1:length(obj.vars)
-                 fprintf(' %s.%s=%f',class(obj.mva.method{obj.idx(c)}),obj.vars{c},obj.configs(i,c));
+                 fprintf('%s.%s=%f',class(obj.mva.method{obj.idx(c)}),obj.vars{c},obj.configs(i,c));
                end
                fprintf('\n');
              end
@@ -170,7 +170,7 @@ classdef gridsearch < dml.method
              obj.models{i} = vld.model;
              
              if obj.verbose
-               fprintf('%s : %f\n',vld.statistic,obj.outcome(i));
+               fprintf('%s : %f\n',vld.stat,obj.outcome(i));
              end
              
              if obj.outcome(i) > maxresult
