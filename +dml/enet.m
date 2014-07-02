@@ -280,13 +280,13 @@ classdef enet < dml.method
       end
 
       % save activations
-      if size(X,1)<20000
+      if size(X,2)<20000
         %Sx = cov([X ones(size(X,1),1)]); % don't forget bias
         Ex = [X ones(size(X,1),1)]'*[X ones(size(X,1),1)];
         Ex = Ex./size(X,1);
         obj.activations = Ex * obj.weights;
       else
-        fprintf('refusing to compute %d x %d covariance matrix.');
+        fprintf('refusing to compute %d x %d covariance matrix\n',size(X,1),size(X,1));
       end
       
     end
