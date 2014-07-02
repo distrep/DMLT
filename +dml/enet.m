@@ -110,7 +110,8 @@ classdef enet < dml.method
           X = [X ones(size(X,1),1)];
           R = chol(X'*X + diag(lambdas));
           obj.weights = R\(R'\(X'*Y));
-          
+          X = X(:,1:end-1);
+		  
         elseif obj.lambda == 0 && strcmp(obj.family,'binomial')
           
           obj.weights = logist2(Y-1,[X ones(size(X,1),1)]);
